@@ -26,17 +26,26 @@ const updatePage = async () => {
 
   // Make API request and get an array of fruit objects
   const fruitsArray = await apiRequest();
-  // console.log(fruitsArray);
+  console.log(fruitsArray);
 
   // TODO: Use either `map` and/or `filter` to extract some data from the array of fruit objects
   // For example, find "name of all fruits whose sugar > 15",
+  const has_protein = fruitsArray.filter(item=>item["nutritions"]["protein"] > 0).map(item => item.name).join(", ");
+  const low_sugar = fruitsArray.filter(item=>item["nutritions"]["sugar"] < 20).map(item => item.name).join(", ");
 
   // TODO: Create a new HTML element to display your data
+  const proteinNode = document.createTextNode(has_protein);
+  const sugarNode = document.createTextNode(low_sugar);
 
+  const fruit_container_div = document.getElementById('fruit-container');
+  fruit_container_div.append(proteinNode)
+  fruit_container_div.append(sugarNode) 
   // TODO: Append your new element to the page
+
 
 }
 
+/*
 // SAMPLE CODE of how to create and append a new HTML element to the page
 const exampleAddElement = () => {
   // Create a new HTML element and set its properties
@@ -47,6 +56,7 @@ const exampleAddElement = () => {
   const existingElement = document.getElementById('example-id');
   existingElement.append(newElement);
 }
+*/
 
 /**
  * To access information in this API, we need to send our requests through a proxy due to CORS restrictions.
